@@ -1,13 +1,21 @@
 #import libraries
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 import pandas as pd 
 import numpy as np
 import requests
+from splinter import Browser
 
-website_url = requests.get("https://en.wikipedia.org/wiki/Lists_of_shipwrecks").text
+#set path to use splinter
+executable_path = {'executable_path': 'chromedriver.exe'}
 
-soup = BeautifulSoup(website_url,'lxml')
+browser = Browser('chrome', **executable_path, headless=False)
 
+#declare url and parser
+url = "https://en.wikipedia.org/wiki/Lists_of_shipwrecks"
+browser.visit(url)
+html = browser.html
+soup = bs(html,'html.parser')
 
-for i in soup.find('div',{'class':'hatnote navigation-not-searchable'}).findAll('a'):
+#find desired data
+for i in soup.find('ul').findAll('a'):
     print (i['href'])
