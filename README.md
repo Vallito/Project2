@@ -30,3 +30,22 @@ Our goal is to show whether the contruction of lighthouses were influenced by th
 
 ### Bar Chart Page
 ![bar](images/mock_bar.png)
+
+## Repository Location:
+* https://github.com/lborgias/Project2
+
+## Languanges
+* Python
+   Flask
+   pymysql
+   pandas
+   splinter
+   beautifulsoup
+* HTML/CSS
+   Bootstrap
+* Javascript
+   leaflet.js
+     Leaflet.MagnifyingGlass
+     Leaflet.BoatMarker
+   plotly.js
+   turf.js
