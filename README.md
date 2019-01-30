@@ -39,9 +39,9 @@ Our goal is to show whether the contruction of lighthouses were influenced by th
 
    * Flask
    * pymysql
-   pandas
-   splinter
-   beautifulsoup
+   * pandas
+   * splinter
+   * beautifulsoup
 
 * HTML/CSS
 
