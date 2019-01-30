@@ -14,7 +14,7 @@ Our goal is to show whether the contruction of lighthouses were influenced by th
 2. https://en.wikipedia.org/wiki/Lists_of_lighthouses
 3. https://hub.arcgis.com/datasets/152b9e03b00b46b595df3cbf760ae90f_5/data
 
-## Visualtion Inspiration:
+## Visualization Inspiration:
 * ![west_US](images/west_us.png)
 * ![linechart](images/line.png)
 
@@ -36,16 +36,23 @@ Our goal is to show whether the contruction of lighthouses were influenced by th
 
 ## Languanges
 * Python
-   Flask
-   pymysql
+
+   * Flask
+   * pymysql
    pandas
    splinter
    beautifulsoup
+
 * HTML/CSS
-   Bootstrap
+
+  *  Bootstrap
+
 * Javascript
-   leaflet.js
-     Leaflet.MagnifyingGlass
-     Leaflet.BoatMarker
-   plotly.js
-   turf.js
+
+   * leaflet.js
+
+     * Leaflet.MagnifyingGlass
+     * Leaflet.BoatMarker
+
+   * plotly.js
+   * turf.js
