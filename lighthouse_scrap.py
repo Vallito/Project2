@@ -39,4 +39,32 @@ tables = []
 for i in url:
     tables.append(pd.read_html("https://en.wikipedia.org" + i))
 
-print(len(tables))
+#shipwreck_df = pd.DataFrame(tables)
+
+# df = tables[0][0]
+# df.columns = ['ship','sunk_date','notes','coordinates']
+# print(df.head())
+
+df = tables[0][2]
+#df.columns = ['ship','sunk_date','notes','coordinates']
+#print(df.head())
+#df = df.reindex(df.index.drop(0)).reset_index(drop=True)
+df
+
+unpacklist = [x for table in tables for x in table]
+new_unpacklist = unpacklist.remove(unpacklist[0])
+new_df = pd.concat(unpacklist)
+#new_df = pd.DataFrame(unpacklist)
+#new_df.columns = ['ship','sunk_date','notes','coordinates']
+#new_df= df.reindex(df.index.drop(0)).reset_index(drop=True)
+
+ship_wreck_data = new_df.drop(columns = [4,5,6,7,8])
+ship_wreck_data = ship_wreck_data.dropna()
+ship_wreck_data.columns= ['ship','sunk_date','notes','coordinates']
+#ship_wreck_data = df.reindex(df.index.drop(0)).reset_index(drop=True)
+
+
+ship_wreck_data = ship_wreck_data.drop_duplicates()
+ship_wreck_data = ship_wreck_data.drop([0])
+
+print(ship_wreck_data)
