@@ -134,19 +134,46 @@ info.onAdd = function() {
   // Add the info legend to the map
   info.addTo(map);
 
-  var icons = {
-    Lighthouses: {
-      color: "yellow",
-      radius:20},
-    Shipwrecks:{
-      color: "blue",
-      radius: 5
-    },
-    Shipwrecks_In: {
-      color: "red",
-      radius: 5
-    }
-  };
+// create custom icons
+var blkShip = L.icon({
+  iconUrl: 'images/ship.png',
+  // shadowUrl:'images/ship_shadow.png',
+  iconSize: [30,30],
+  // shadowSize: [30,30],
+  iconAnchor: [15,29],
+  // shadowAnchor: [4,10],
+  popupAnchor: [-3,-40]
+});
+var redShip = L.icon({
+  iconUrl: 'images/ship_red.png',
+  // shadowUrl:'images/ship_shadow.png',
+  iconSize: [30,30],
+  // shadowSize: [30,30],
+  iconAnchor: [15,29],
+  // shadowAnchor: [4,10],
+  popupAnchor: [-3,-40]
+});
+var purShip = L.icon({
+  iconUrl: 'images/ship_purple.png',
+  // shadowUrl:'images/ship_shadow.png',
+  iconSize: [30,30],
+  // shadowSize: [30,30],
+  iconAnchor: [15,29],
+  // shadowAnchor: [4,10],
+  popupAnchor: [-3,-40]
+});
+var lighthouse = L.icon({
+  iconUrl: 'images/lighthouse.png',
+  // shadowUrl:'images/lighthouse_shadow.png',
+  iconSize: [50,50],
+  // shadowSize: [40,40],
+  iconAnchor: [25,49],
+  // shadowAnchor: [4,38],
+  popupAnchor: [-3,-40]
+});
+
+var popup = L.responsivePopup().setContent(
+  '<h4>Test</h4> Responsive Popup.<br> Easily customizable.');
 
   var LightHouseCircle = L.geoJSON(lighthousePolygons.features);
       LightHouseCircle.addTo(layers['LightHouseCircle']);
@@ -162,38 +189,57 @@ info.onAdd = function() {
       // compare ship to lighthouse locations
     for (var p = 0; p<lpoly.length;p++){
       var intersection = turf.intersect(boat.geometry,lpoly[p].geometry );
+      var marker ;
       //If point and polygon intersect:
       if (intersection !== null) {
         boat.properties['lighthouse'] = lpoly[p].properties.name
         if( boat.properties.year > lpoly[p].properties.year){
           boat.properties['when'] = 'after'
+          marker = L.marker(boat.geometry, {
+            icon: redShip
+          });
         }
-        else {boat.properties['when'] = 'before'};
+        else {
+          boat.properties['when'] = 'before'
+          marker = L.marker(boat.geometry, {
+            icon: blkShip
+        });
+        };
       console.log(lpoly[p].properties.name);
       console.log(boat.properties);
-      };
+      }
+    else {
+    marker = L.marker(boat.geometry, {
+      icon: purShip
+    });
     };
 
-    var newMarker = L.circleMarker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
-      'color': icons.Shipwrecks.color,
-      'radius' : icons.Shipwrecks.radius
-  });
+    marker.addTo(myMap).bindPopup(popup);
+    // var newMarker = L.circleMarker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+      // 'color': icons.Shipwrecks.color,
+      // 'radius' : icons.Shipwrecks.radius
+ // });
 
-  newMarker.addTo(layers['Shipwrecks']);
+  // newMarker.addTo(layers['Shipwrecks']);
 
   };
+};
 
   var l_houses = lighthouses.features;
   for (var l = 0; l < l_houses.length; l++){
     //console.log(l_houses[l]);
     var light = Object.assign({}, l_houses[l]); 
     //console.log(light.geometry.coordinates);
-    var newMarker = L.circleMarker([light.geometry.coordinates[1],light.geometry.coordinates[0]], {
-      'color':icons.Lighthouses.color,
-      'radius':icons.Lighthouses.radius
-});
+    var lighthouseMarker =  L.marker([light.geometry.coordinates[1],light.geometry.coordinates[0]], {
+      icon: lighthouse
+  });
+  
+//   L.circleMarker([light.geometry.coordinates[1],light.geometry.coordinates[0]], {
+//       'color':icons.Lighthouses.color,
+//       'radius':icons.Lighthouses.radius
+// });
 
-newMarker.addTo(layers['Lighthouses']);
+lighthouseMarker.addTo(layers['Lighthouses']);
 };
 
 };
