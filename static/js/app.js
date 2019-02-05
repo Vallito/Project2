@@ -9,14 +9,15 @@ d3.queue()
 function makeViz(error,appData) {
 
   // console.log(appData[1]);
+console.log(appData);
 //Note: may need to adjust vars depending on what/how data is returned.
 var lighthouses = appData[0].lighthouses;
 var shipwreckData = appData[1].shipwrecks;
-
+console.log(shipwreckData);
 //  console.log(shipwreckData);
 // Create Polygon of lighthouses with x radius from center. Assumes lighthouses is geoJson
 
-var features = lighthouses.features;
+var features = lighthouses[0].features;
 var radius = 10;
 var options = {steps: 25, units: 'miles'};
 
@@ -33,7 +34,7 @@ for (var i in features){
     // add the polygon to the ploy obj
     poly.push(circle);
 };
-// console.log(poly);
+ console.log(poly);
 
 // Convert poly to a geoJson for spatial analysis
 var lighthousePolygons = {};
@@ -47,36 +48,47 @@ shipWrecks['type'] = 'FeatureCollection';
 shipWrecks['features'] = [];
 
 //NOTE: may need to be used depending on how data comes across
-// for (var k in shipwreckData) {
-//   console.log(k);
-//     var ship = {
-//       "type": "Feature",
-//       "geometry": {
-//         "type": "Point",
-//         "coordinates": [parseFloat(shipwreckData[k].lat), parseFloat(shipwreckData[k].lon)]
-//       },
-//       "properties": {
-//         "title": shipwreckData[k].title,
-//         "description": shipwreckData[k].desc,
-//         "year": shipwreckData[k].year
-//       }
-//     };
-//     shipWrecks['features'].push(ship);
-//   };
-
-var ship = {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [parseFloat(shipwreckData.lat), parseFloat(shipwreckData.lon)]
-  },
-  "properties": {
-    "title": shipwreckData.title,
-    "description": shipwreckData.desc,
-    "year": shipwreckData.year
+for (var k in shipwreckData) {
+  console.log(k,shipwreckData[k].coordinates.length);
+  if (shipwreckData[k].coordinates.length>1 && isNaN(shipwreckData[k].coordinates[1])==false){
+  var year;
+  var notes;
+  if(isNaN(shipwreckData[k].sunk_date.substr(shipwreckData[k].sunk_date.length - 4))){
+    year = shipwreckData[k].notes.substr(shipwreckData[k].sunk_date.notes - 4);
+    notes = shipwreckData[k].sunk_date.substr(shipwreckData[k].sunk_date.length - 4);
   }
+  else {year = shipwreckData[k].sunk_date.substr(shipwreckData[k].sunk_date.length - 4);
+  notes = shipwreckData[k].notes.substr(shipwreckData[k].sunk_date.notes - 4)};
+  var ship = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [parseFloat(shipwreckData[k].coordinates[0]), parseFloat(shipwreckData[k].coordinates[1])]
+      },
+      "properties": {
+        "title": shipwreckData[k].ship,
+        "description": notes,
+        "year": year
+      }
+    };
+    shipWrecks['features'].push(ship);
+  }
+  // else {console.log(shipwreckData[k])
+  // }
+  ;
+// var ship = {
+//   "type": "Feature",
+//   "geometry": {
+//     "type": "Point",
+//     "coordinates": [parseFloat(shipwreckData.coordinates[0]), parseFloat(shipwreckData.coordinates[1])]
+//   },
+//   "properties": {
+//     "title": shipwreckData.ship,
+//     "description": shipwreckData.notes,
+//     "year": shipwreckData.sunk_date.substr(shipwreckData.sunk_date.length - 4) 
+//   }
 };
-shipWrecks['features'].push(ship);
+
 
   console.log('shipwrecks');
   console.log(shipWrecks);
@@ -136,7 +148,7 @@ info.onAdd = function() {
 
 // create custom icons
 var blkShip = L.icon({
-  iconUrl: 'images/ship.png',
+  iconUrl: './static/images/ship.png',
   // shadowUrl:'images/ship_shadow.png',
   iconSize: [30,30],
   // shadowSize: [30,30],
@@ -145,7 +157,7 @@ var blkShip = L.icon({
   popupAnchor: [-3,-40]
 });
 var redShip = L.icon({
-  iconUrl: 'images/ship_red.png',
+  iconUrl: './static/images/ship_red.png',
   // shadowUrl:'images/ship_shadow.png',
   iconSize: [30,30],
   // shadowSize: [30,30],
@@ -154,7 +166,7 @@ var redShip = L.icon({
   popupAnchor: [-3,-40]
 });
 var purShip = L.icon({
-  iconUrl: 'images/ship_purple.png',
+  iconUrl: './static/images/ship_purple.png',
   // shadowUrl:'images/ship_shadow.png',
   iconSize: [30,30],
   // shadowSize: [30,30],
@@ -163,7 +175,7 @@ var purShip = L.icon({
   popupAnchor: [-3,-40]
 });
 var lighthouse = L.icon({
-  iconUrl: 'images/lighthouse.png',
+  iconUrl: './static/images/lighthouse.png',
   // shadowUrl:'images/lighthouse_shadow.png',
   iconSize: [50,50],
   // shadowSize: [40,40],
@@ -172,8 +184,7 @@ var lighthouse = L.icon({
   popupAnchor: [-3,-40]
 });
 
-var popup = L.responsivePopup().setContent(
-  '<h4>Test</h4> Responsive Popup.<br> Easily customizable.');
+
 
   var LightHouseCircle = L.geoJSON(lighthousePolygons.features);
       LightHouseCircle.addTo(layers['LightHouseCircle']);
@@ -185,51 +196,75 @@ var popup = L.responsivePopup().setContent(
   console.log(wrecks.length);
   for (var i = 0; i < wrecks.length; i++){
     var boat = Object.assign({}, wrecks[i]); 
-      console.log(boat.geometry);
+    console.log(boat.properties);
+      // console.log(boat.geometry);
       // compare ship to lighthouse locations
+      //var marker ;
+    var marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+      'icon': purShip
+      });
+    var popup = L.responsivePopup().setContent(
+        `<h4>${boat.properties.title}</h4><br>
+        ${boat.properties.year}<br>
+        ${boat.geometry.coordinates[0]}<br>
+        ${boat.geometry.coordinates[1]}`);
     for (var p = 0; p<lpoly.length;p++){
       var intersection = turf.intersect(boat.geometry,lpoly[p].geometry );
-      var marker ;
+     
       //If point and polygon intersect:
       if (intersection !== null) {
         boat.properties['lighthouse'] = lpoly[p].properties.name
         if( boat.properties.year > lpoly[p].properties.year){
-          boat.properties['when'] = 'after'
-          marker = L.marker(boat.geometry, {
-            icon: redShip
+          console.log('after',boat.properties.year,lpoly[p].properties.year);
+          boat.properties['when'] = 'after';
+          marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+            'icon': redShip
+          
           });
+
+
         }
         else {
-          boat.properties['when'] = 'before'
-          marker = L.marker(boat.geometry, {
-            icon: blkShip
+          console.log('before',boat.properties.title,boat.properties.year,lpoly[p].properties.year);
+          boat.properties['when'] = 'before';
+          marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+            'icon': blkShip
         });
-        };
+        
+        }
+        
       console.log(lpoly[p].properties.name);
-      console.log(boat.properties);
-      }
-    else {
-    marker = L.marker(boat.geometry, {
-      icon: purShip
-    });
-    };
-
-    marker.addTo(myMap).bindPopup(popup);
+      console.log([boat.geometry.coordinates[0],boat.geometry.coordinates[1]]);
+      break;
+      };
+   
+    // console.log('bind popup');
     // var newMarker = L.circleMarker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
       // 'color': icons.Shipwrecks.color,
       // 'radius' : icons.Shipwrecks.radius
  // });
 
-  // newMarker.addTo(layers['Shipwrecks']);
+ //marker.addTo(layers['Shipwrecks']);
 
   };
+  // marker.bindPopup(popup);
+  // console.log(marker.icon);
+  marker.addTo(layers['Shipwrecks']).bindPopup(popup);
+  // marker.addTo(map);
 };
+console.log('ships complete');
 
-  var l_houses = lighthouses.features;
+  var l_houses = features;
   for (var l = 0; l < l_houses.length; l++){
     //console.log(l_houses[l]);
     var light = Object.assign({}, l_houses[l]); 
-    //console.log(light.geometry.coordinates);
+    // console.log(light.geometry.coordinates);
+    var popup = L.responsivePopup().setContent(
+      `<h4>${light.properties.name}</h4><br>
+      ${light.properties.year}<br>
+      ${light.geometry.coordinates[1]}<br>
+      ${light.geometry.coordinates[0]}`);
+
     var lighthouseMarker =  L.marker([light.geometry.coordinates[1],light.geometry.coordinates[0]], {
       icon: lighthouse
   });
@@ -239,7 +274,7 @@ var popup = L.responsivePopup().setContent(
 //       'radius':icons.Lighthouses.radius
 // });
 
-lighthouseMarker.addTo(layers['Lighthouses']);
+lighthouseMarker.addTo(layers['Lighthouses']).bindPopup(popup);
 };
 
 };

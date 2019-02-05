@@ -13,9 +13,9 @@ conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
 # connect to mongo db and collection
-db = client.project2
+db = client.ship_wreck_db
 LightHouses = db.lighthouses
-ShipWrecks = db.shipwreckData
+ShipWrecks = db.shipwreckData 
 
 
 
@@ -26,18 +26,18 @@ def index():
 @app.route("/data")
 def data():
     # write a statement that finds all the items in the db and sets it to a variable
-    lighthouses = list(db.LightHouses.find())
+    lighthouses = list(LightHouses.find())
     # print(lighthouses)
 
-    shipwreckData = list(db.ShipWrecks.find())
+    shipwreckData = list(ShipWrecks.find())
     print(f'ships: {shipwreckData}')
     # render an index.html template and pass it the data you retrieved from the database
     appData = []
     for data in lighthouses:
         # print(data)
-        appData.append({'lighthouses':data})
-    for ships in shipwreckData:
-        appData.append({'shipwrecks':ships})
+        appData.append({'lighthouses':[data]})
+    # for ships in shipwreckData:
+    appData.append({'shipwrecks':shipwreckData})
     appData = json.dumps(appData, default=json_util.default)
     print(appData)
     return  appData
