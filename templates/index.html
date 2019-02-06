@@ -14,7 +14,7 @@
     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./static/css/ShipwrecksCSS.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/ShipwrecksCSS.css') }}" rel="stylesheet">
      <!-- Google Font -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet"> -->
 
@@ -31,7 +31,7 @@
   <!-- <link rel="stylesheet" href="css/leaflet.extra-markers.min.css"> -->
 
   <!-- Our CSS -->
-  <link rel="stylesheet" href="./static/css/style.css">
+  <!-- <link rel="stylesheet" href="./static/css/style.css"> -->
 
   
   <script src="https://unpkg.com/jsts@2.0.3/dist/jsts.min.js"></script>
@@ -59,9 +59,8 @@
     <!-- API key -->
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <!-- Leaflet Extra Markers Plug in -- CAN BE REMOVED -->
-    <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script> -->
     <!-- JS -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
     <!-- D3 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
@@ -89,15 +88,16 @@
 
     <div class="jumbotron">
       <h1 class="display-3">Shipwrecks & Lighthouses</h1>
-      <div id="map"></div>
-      <!--<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
-      <!-- <img src="https://cdn.clipart.email/820ec4e91b11d42757b80a55a45a7aae_lighthouse-clipart-projects-to-try-pinterest-lighthouse-_1979-2310.png" alt="Lighthouse" style="width:200px;height:100px;"> -->
+
+        <div id="map" class="map"></div>
+
+        
       
     </div>
 
     <div class="jumbotron">
       <h1 class="display-3">Number of Shipwrecks by Decade</h1>
+      <div id="graph" class="map"></div>
     </div>
 
     <div class="jumbotron">
@@ -121,5 +121,7 @@
   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
 
   </body>
+  <script src="{{ url_for('static', filename='js/d3app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </html>
