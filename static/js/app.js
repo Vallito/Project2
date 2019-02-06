@@ -146,8 +146,8 @@ shipWrecks['features'] = [];
 
 //NOTE: may need to be used depending on how data comes across
 for (var k in shipwreckData) {
-  // console.log(k,shipwreckData[k].coordinates.length);
-  if (shipwreckData[k].coordinates.length>1 && isNaN(shipwreckData[k].coordinates[1])==false){
+  console.log(k,shipwreckData[k].coordinates);
+  if (shipwreckData[k].coordinates != null && shipwreckData[k].coordinates.length>1 && isNaN(shipwreckData[k].coordinates[1])==false){
   var year;
   var notes;
   if(isNaN(shipwreckData[k].sunk_date.substr(shipwreckData[k].sunk_date.length - 4))){
