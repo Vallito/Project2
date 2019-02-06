@@ -26,9 +26,15 @@ ShipWrecks = db.shipwreckData
 #Drop old collections
 ShipWrecks.drop()
 
-ShipWrecks.insert_one(
-    {'title':'Shipwreck at St.Johns','desc':'st.johns','lat':'29.77212','lon':'-81.22192','year':1995}
-
+ShipWrecks.insert_many(
+    [{'ship': 'Globe Star',
+  'sunk_date': '27 April 1973',
+  'notes': 'A cargo ship that ran aground off Mombasa.[1]',
+  'coordinates': [-4.081, '39.72']},
+ {'ship': 'HMS Gulland',
+  'sunk_date': '13 April 1951',
+  'notes': 'A 545-ton Isles-class trawler built for World War II. It ran aground three miles (4.8\xa0km) north of Mombasa.',
+  'coordinates': [-4.0472, '39.73250']}]
 )
 
 print("Shipwrecks Uploaded!")
