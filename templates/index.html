@@ -31,7 +31,7 @@
   <!-- <link rel="stylesheet" href="css/leaflet.extra-markers.min.css"> -->
 
   <!-- Our CSS -->
-  <link rel="stylesheet" href="./static/css/style.css">
+  <!-- <link rel="stylesheet" href="./static/css/style.css"> -->
 
   
   <script src="https://unpkg.com/jsts@2.0.3/dist/jsts.min.js"></script>
@@ -59,7 +59,7 @@
     <!-- API key -->
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <!-- Leaflet Extra Markers Plug in -- CAN BE REMOVED -->
-    <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script> -->
     <!-- JS -->
 
     <!-- D3 -->
@@ -97,6 +97,7 @@
 
     <div class="jumbotron">
       <h1 class="display-3">Number of Shipwrecks by Decade</h1>
+      <div id="graph" class="map"></div>
     </div>
 
     <div class="jumbotron">
@@ -120,6 +121,10 @@
   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
 
   </body>
+<<<<<<< HEAD
+=======
+  <script src="{{ url_for('static', filename='js/d3app.js') }}"></script>
+>>>>>>> 4b5c59fd20af3135836cc17e3fd6cea3e23206d6
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </html>

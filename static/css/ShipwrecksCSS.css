@@ -9,7 +9,56 @@ body {
   background-size: cover;
 }
 
+/* body, */
+html {
+  height: 100%;
+}
 
+.leaflet-popup-content {
+  text-align: center;
+}
+
+.map{
+  height: 55vh;
+}
+
+/* CSS from the Leaflet-Choropleth documentation */
+.legend {
+  padding: 6px 8px;
+  font: 12px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #555;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.legend ul {
+  padding: 0;
+  margin: 0;
+  clear: both;
+  list-style-type: none;
+}
+
+.legend li {
+  display: inline-block;
+  width: 30px;
+  height: 22px;
+}
+
+.legend .min {
+  float: left;
+  padding-bottom: 5px;
+}
+
+.legend .max {
+  float: right;
+}
+
+h1 {
+  text-align: center;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -93,7 +142,7 @@ body {
     /*text 175, 146, 84*/
     font-family: Blackadder ITC;
     color: rgb(175, 146, 84);
-    text-shadow: 0px 3px 0px rgb(0, 0, 0);
+    /* text-shadow: 0px 3px 0px rgb(0, 0, 0); */
   
   }
 
@@ -136,4 +185,6 @@ body {
     }
     100% {
       left: 0;
+    }
+}
 }
