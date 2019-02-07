@@ -31,9 +31,19 @@ svg.append("rect")
 var chartGroup = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    
+var svgBar = d3
+    .select("#bar")
+    .append("svg")
+    .attr("height", svgHeight)
+    .attr("width", svgWidth);
 
+svgBar.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "white");
 
+var barGroup = svgBar.append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 // Parse the date / time
 // var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -212,61 +222,40 @@ chartGroup.append("g")
   .call(bottomAxis);
 
 
-// var lhCircles = chartGroup.selectAll('circle')
-//     .enter()
-//     .append("circle")
-//     .attr("cx",d => lYear[d])
-//     .attr("cy",d => lYearCounts[d])
-//     .attr("r",5)
-//     .attr("fill","darkblue");
 
+totals = [];
 
+var shipCount = 0;
+var lightCount = 0;
+for (key in yearCounts) {
+  shipCount = shipCount + yearCounts[key]
+};
+console.log(shipCount)
+for (key in lYearCounts) {
+  lightCount = lightCount + lYearCounts[key]
+};
+console.log(lightCount)
 
+shipVsLight = []
+shipVsLight.push(shipCount);
+shipVsLight.push(lightCount);
+console.log(shipVsLight)
 
+barGroup.selectAll("rect")
+  .data(shipVsLight)
+  .enter()
+  .append("rect")
+  .attr("width", 150)
+  .attr("height", function(data) {
+    return data * .35;
+  })
+  .attr("x", function(data, index) {
+    return index * 160 + 30;
+  })
+  .attr("y", function(data) {
+    return svgHeight - data * .35;
+  })
+  .attr("fill", "#BF854A");
 
-
-
-
-
-
-
-
-
-
-
-  // Loop through yearCounts to bin
-  
-  
-//   var data = {};
-//   wreckYears.forEach(function (o) {
-//     // add the type to the hash if it is missing;
-//     // set initial count to 0
-//     if (!data.hasOwnProperty(data[o])) {
-//       counts[o] = 0;
-//     }
-//     // increment the count based on the type
-//     counts[o] += 1;
-// });
-//   // Scale the range of the data
-//   x.domain(d3.extent(data, function(d) { return d.date; }));
-//   y.domain([0, d3.max(data, function(d) { return d.close; })]);
-
-//   // Add the valueline path.
-//   svg.append("path")
-//       .attr("class", "line")
-//       .attr("d", valueline(data));
-
-//   // Add the X Axis
-//   svg.append("g")
-//       .attr("class", "x axis")
-//       .attr("transform", "translate(0," + height + ")")
-//       .call(xAxis);
-
-//   // Add the Y Axis
-//   svg.append("g")
-//       .attr("class", "y axis")
-//       .call(yAxis);
-
-// });
 
 };
