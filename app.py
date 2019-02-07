@@ -33,9 +33,10 @@ def data():
     print(f'ships: {shipwreckData}')
     # render an index.html template and pass it the data you retrieved from the database
     appData = []
-    for data in lighthouses:
-        # print(data)
-        appData.append({'lighthouses':[data]})
+    # for data in lighthouses:
+    appData.append({'lighthouses':lighthouses})
+    #     # print(data)
+    #     appData.append({'lighthouses':[data]})
     # for ships in shipwreckData:
     appData.append({'shipwrecks':shipwreckData})
     appData = json.dumps(appData, default=json_util.default)
