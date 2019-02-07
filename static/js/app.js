@@ -9,6 +9,7 @@ var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png
 // Initialize all of the LayerGroups we'll be using
 var layers = {
     Lighthouses: new L.LayerGroup(),
+    LightHouseCircle: new L.LayerGroup(),
     Shipwrecks_before: new L.LayerGroup(),
     Shipwrecks_after: new L.LayerGroup(),
     Shipwrecks_other: new L.LayerGroup()
@@ -24,8 +25,8 @@ var layers = {
       layers.Lighthouses,
       layers.Shipwrecks_before,
       layers.Shipwrecks_after,
-      layers.Shipwrecks_other
-      // layers.LightHouseCircle
+      layers.Shipwrecks_other,
+      layers.LightHouseCircle
     ]
   });
 
@@ -34,6 +35,7 @@ lightmap.addTo(map);
 
 var overlays = {
     "Lighthouses": layers.Lighthouses,
+    "Lighthouse Zones": layers.LightHouseCircle,
     "Before": layers.Shipwrecks_before,
     "After": layers.Shipwrecks_after,
     "Other": layers.Shipwrecks_other
@@ -108,13 +110,60 @@ function makeViz(error,appData) {
   // console.log(appData[1]);
 console.log(appData);
 //Note: may need to adjust vars depending on what/how data is returned.
-var lighthouses = appData[0].lighthouses;
+var lh = appData[0].lighthouses;
 var shipwreckData = appData[1].shipwrecks;
 console.log(shipwreckData);
 //  console.log(shipwreckData);
+
+// Create geoJson for lighthouses
+
+var lighthouses = {};
+lighthouses['type'] = 'FeatureCollection';
+lighthouses['features'] = [];
+
+
+for (var k in lh) {
+  console.log(k,lh[k].Coordinates);
+  if (lh[k].Coordinates != null && lh[k].Coordinates.length>1 && isNaN(lh[k].Coordinates[1])==false){
+  var l_year;
+  var yearRaw = lh[k]['Year first lit'];
+  console.log(yearRaw != null);
+  if(yearRaw != null){
+    if(isNaN(yearRaw.toString().substring(yearRaw.length - 4))){
+      l_year = yearRaw.toString().substring(0,4);
+    }
+    else{
+
+      l_year = yearRaw.toString().substring(yearRaw.length - 4);
+      };
+  }; 
+  console.log(lh[k].Names);
+  console.log(l_year);
+  var house = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [parseFloat(lh[k].Coordinates[0]), parseFloat(lh[k].Coordinates[1])]
+      },
+      "properties": {
+        "name": lh[k].Name,
+        "location": lh[k].Location,
+        "year": l_year
+      }
+      
+    };
+    // console.log(ship);
+    lighthouses['features'].push(house);
+  };
+  // else {console.log(lh[k])
+  // }
+};
+console.log(lighthouses);
+
+
 // Create Polygon of lighthouses with x radius from center. Assumes lighthouses is geoJson
 
-var features = lighthouses[0].features;
+var features = lighthouses.features;
 var radius = 10;
 var options = {steps: 25, units: 'miles'};
 
@@ -161,7 +210,7 @@ for (var k in shipwreckData) {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [parseFloat(shipwreckData[k].coordinates[0]), parseFloat(shipwreckData[k].coordinates[1])]
+        "coordinates": [parseFloat(shipwreckData[k].coordinates[1]), parseFloat(shipwreckData[k].coordinates[0])]
       },
       "properties": {
         "title": shipwreckData[k].ship,
@@ -197,8 +246,14 @@ for (var k in shipwreckData) {
 
 
 
-      // var LightHouseCircle = L.geoJSON(lighthousePolygons.features);
-      //     LightHouseCircle.addTo(layers['LightHouseCircle']);
+      var LightHouseCircle = L.geoJSON(lighthousePolygons,{
+        coordsToLatLng: function (coords) {
+            //                    latitude , longitude, altitude
+            return new L.LatLng(coords[1], coords[0], coords[2]); //Normal behavior
+            // return new L.LatLng(coords[0], coords[1]);
+        }
+    });
+          LightHouseCircle.addTo(layers['LightHouseCircle']);
 
       
       var wrecks = shipWrecks.features;
@@ -212,7 +267,7 @@ for (var k in shipwreckData) {
           // compare ship to lighthouse locations
           //var marker ;
         var layerName = 'Shipwrecks_other';
-        var marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+        var marker = L.marker([boat.geometry.coordinates[1],boat.geometry.coordinates[0]], {
           'icon': purShip
           });
         var popup = L.responsivePopup().setContent(
@@ -231,7 +286,7 @@ for (var k in shipwreckData) {
               // console.log('after',boat.properties.year,lpoly[p].properties.year);
               boat.properties['when'] = 'after';
               layerName = 'Shipwrecks_after';
-              marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+              marker = L.marker([boat.geometry.coordinates[1],boat.geometry.coordinates[0]], {
                 'icon': redShip
               
               });
@@ -242,7 +297,7 @@ for (var k in shipwreckData) {
               // console.log('before',boat.properties.title,boat.properties.year,lpoly[p].properties.year);
               boat.properties['when'] = 'before';
               layerName = 'Shipwrecks_before';
-              marker = L.marker([boat.geometry.coordinates[0],boat.geometry.coordinates[1]], {
+              marker = L.marker([boat.geometry.coordinates[1],boat.geometry.coordinates[0]], {
                 'icon': blkShip
             });
             
@@ -272,16 +327,16 @@ for (var k in shipwreckData) {
 
       var l_houses = features;
       for (var l = 0; l < l_houses.length; l++){
-        //console.log(l_houses[l]);
+        // console.log(l_houses[l]);
         var light = Object.assign({}, l_houses[l]); 
-        // console.log(light.geometry.coordinates);
+        // console.log(light);
+        // console.log(light);
         var popup = L.responsivePopup().setContent(
           `<h4>${light.properties.name}</h4><br>
-          ${light.properties.year}<br>
-          ${light.geometry.coordinates[1]}<br>
-          ${light.geometry.coordinates[0]}`);
+          ${light.properties.location}<br>
+          ${light.properties.year}`);
 
-        var lighthouseMarker =  L.marker([light.geometry.coordinates[1],light.geometry.coordinates[0]], {
+        var lighthouseMarker =  L.marker([light.geometry.coordinates[0],light.geometry.coordinates[1]], {
           icon: lighthouse
       });
       
