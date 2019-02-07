@@ -50,6 +50,12 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
+  
   </head>
 
   <body>
@@ -70,39 +76,91 @@
 
   <div class="container">
     <div class="header clearfix">
-      <nav>
-        <ul class="nav nav-pills float-right">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </nav>
+   
       <h3>Pyrates</h3>
     </div>
 
-    <div class="jumbotron">
-      <h1 class="display-3">Shipwrecks & Lighthouses</h1>
-
-        <div id="map" class="map"></div>
-
-        
+    <div class="accordion" id="accordionExample">
+        <div class="card jumbotron">
+          <div class="card-header" id="headingOne">
+            <h1 class="mb-0">
+                  <p class="pyratetext display-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Shipwrecks & Lighthouses</p>
+          </div>
       
-    </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <div id="map" class="map"></div>
+            </div>
+          </div>
+        </div>
 
-    <div class="jumbotron">
-      <h1 class="display-3">Number of Shipwrecks by Decade</h1>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card jumbotron">
+              <div class="card-header" id="headingOne">
+                <h1 class="mb-0">
+                      <p class="pyratetext display-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Number of Shipwrecks by Decade</p>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div id="map" class="map"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card jumbotron">
+                  <div class="card-header" id="headingOne">
+                    <h1 class="mb-0">
+                          <p class="pyratetext display-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">By Location</p>
+                  </div>
+              
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div id="map" class="map"></div>
+                    </div>
+                  </div>
+                </div>          
+
+    
+      
+    
+  
+  
+         
+
+
+ 
+
+
+
+
+    <!-- <div class="jumbotron">
+      <h1 class="display-3"></h1>
       <div id="graph" class="map"></div>
     </div>
 
+
+
+
+
+
+
+
+
     <div class="jumbotron">
       <h1 class="display-3">By Location</h1>
-    </div>
+    </div> -->
+
+
+
+
+
+
+
+
+
 
     <div class="test">
       <div class="path">

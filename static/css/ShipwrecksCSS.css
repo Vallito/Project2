@@ -132,6 +132,12 @@ h1 {
     margin-bottom: 2rem;
   }
   /* Remove the bottom border on the jumbotron for visual effect THIS ONE */
+  .pyratetext {
+    font-family: Blackadder ITC;
+    color: rgb(175, 146, 84);
+    font-size: 600px;
+  }
+  
   .jumbotron {
     /*background*/
     background: url("Wooden Deck.jpg") no-repeat center;
