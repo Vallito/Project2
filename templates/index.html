@@ -8,67 +8,19 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     <title>Pyrates</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/">
 
-    <!-- Bootstrap core CSS -->
-    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Bootstrap core CSS --> 
+     <link href="./static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/ShipwrecksCSS.css') }}" rel="stylesheet">
-     <!-- Google Font -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet"> -->
+    <link href="{{ url_for('static', filename='css/ShipwrecksCSS.css') }}" rel="stylesheet"> 
 
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-  crossorigin=""></script>
-
-  <!-- Icons -->
-  <!-- <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
-  <!-- <link rel="stylesheet" href="css/leaflet.extra-markers.min.css"> -->
-
-  <!-- Our CSS -->
-  <!-- <link rel="stylesheet" href="./static/css/style.css"> -->
-
-  
-  <script src="https://unpkg.com/jsts@2.0.3/dist/jsts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-
-     <!-- Marker Cluster JS & CSS -->
-    <!-- Responsive popup -->
-    <script src="https://unpkg.com/leaflet-responsive-popup@0.6.3/leaflet.responsive.popup.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-responsive-popup@0.6.3/leaflet.responsive.popup.css" />
-    <!-- boatmarker -->
-    <!-- <script src="https://unpkg.com/leaflet.boatmarker/leaflet.boatmarker.min.js"></script> -->
-    <script src="https://unpkg.com/leaflet.boatmarker@1.1.5/leaflet.boatmarker.min.js"></script>
-    
-    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
-
-  </head>
+  </head> 
 
   <body>
 
-    
-
-    <!-- API key -->
-    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-    <!-- Leaflet Extra Markers Plug in -- CAN BE REMOVED -->
-    <!-- <script src="{{ url_for('static', filename='js/leaflet.extra-markers.min.js') }}"></script> -->
-    <!-- JS -->
-
-    <!-- D3 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-
-  <!-- MomentJS -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-
   <div class="container">
+
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
@@ -76,33 +28,126 @@
             <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="/display">View Visualizations</a>
           </li>
         </ul>
       </nav>
-      <h3>Pyrates</h3>
+      <h4>Pyrates</h4>
+    </div>
+<div class="section">
+  <div class="row">
+    <div class="col-sm">
+      <h1 class="display-3">The Story</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <article>
+        <p>What can we learn by looking at shipwrecks and lighthouses? Can we see a story tell itself in the data? Do we see a correlation?
+        </p>
+
+      </article>
+    </div>
+    <div class="col-sm">
+        <div class="hovereffect">
+        <img  class="img-responsive" src="{{ url_for('static', filename='images/Wreck-Annie-C-Maguire.jpg') }}"></img>
+        <div class="overlay">
+            <h3>Annie C Maguire</h3>
+            <a class="info" href="https://www.nelights.com/blog/annie-c-maguire-wrecked-at-portland-lighthouse-on-christmas-eve/" target = "blank">The Story</a>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="section">
+      <h1 class="display-3">The Process</h1>
+      <article>
+        <h2>Data</h2>
+        <p>To begin, we determined we needed to find a couple different datasets.
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/List_of_lighthouses_in_the_United_States" target="blank">Lighthouses of the US</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/List_of_shipwrecks_of_the_United_States" target="blank">Shipwrecks of the US</a></li>
+          </ul>
+          We scoured the web for data sources that met four main reqirements:
+    
+          <ul>
+            <li>Coordinates - needed to compare locations</li>
+            <li>Dates - needed to compare relative timeframes</li>
+            <li>Reasonably complete</li>
+            <li>Easily accessible</li>
+          </ul>
+          As it usually is, when it comes to gathering data, the task turned out to be a bit more difficult than
+          we had hoped. We landed on using Wikipedia as our source for both, using the websraping techniques learned
+          in previous modules.
+        </p>
+        <h2>Cleansing</h2>
+        <p>
+          Working with data scraped from the web presented a couple challenges, due to the way the data was stored in the site.
+          The primary concern was taking the coordinate values received and turing them into useful data for plotting.This meant removing
+          any special characters, and converting the N/S and E/W into strictly numbers.
+        </p>
+        <p>
+            Additionally, we needed to remove any records that did not have either a year or coordinate location associated with it. 
+            Since we were doing a comparison of both time and location, these datapoints were crucial. 
+        </p>
+        <h2>Plotting</h2>
+        <p>This part was probably the most challenging, but the most rewarding. In order to do a comparison between the lighthouses
+          and the shipwrecks, we needed to convert the lighthouse points into polygons. This meant taking the json object of lighthoues,
+          and turning them into a GeoJson object. <br><br>Fun Fact: coordinates in a GeoJson are stored [Lon,Lat] while corrdinates used in 
+          plotting a non-GeoJon object in leaflet are [Lat,Lon]. <br><br> There was quite a bit of trial and error, but eventually we were able 
+          to get all necessary objects created for the comparison. Once we had which lighthouse each shipwreck was associated with, we could do a
+          comparison between the years to see if the wreck happend before or after the construction of the lighthouse. 
+        </p>
+      </article>
     </div>
 
-    <div class="jumbotron">
-      <h1 class="display-3">Shipwrecks & Lighthouses</h1>
+    <div class="section">
+      <h1 class="display-3">The Conclusion</h1>
+      <article>
+      <p>There were a few things that jumped out at us when we first took a look at the leaflet plot.
+      There were quite a few Shipwrecks and Lighthouses inland. Much more than we would have expected.
+      There also appeared to be more shipwrecks that occured after the construction of the Lighthouse. 
+      </p>
+      <p>
+        When it came to plotting the Lighthouses and Shipwrecks by year was when we saw some interesting trends.
+        In 1860, there's a sharp decline in the construction of lighhouses, and a steep increase of shipwrecks. This, 
+        Ladies and Gentlemen, is the real life affect of the 
+        <a href="https://en.wikipedia.org/wiki/American_Civil_War" target="blank">American Civil War</a>, which lasted from 1861 to 1865. 
+        Lighthouse resources were directed towards the effors of the war, rather than towards construction, and the increase in Shipwrecks
+        was due casualties of war. Once the war was over, the number of Shipwrecks dropped, and the construction of lighthouses commenced again.
+      </p>
+      <p>Interestingly, we can see that since the 1960's, there have been no more lighthouses constructed in the US. The last lighthouse lit
+        was the <a href="https://en.wikipedia.org/wiki/Charleston_Light" target="blank">Charleston Light</a> in South Carolina. This is likely
+        due to advancements in navigation, and communcation between ship and shore.
+      </p>
+    </article>
+    </div>
 
-        <div id="map" class="map"></div>
-
-        
+    <div class="section">
+        <h1 class="display-3">The Epilogue</h1>
+        <article>
+            <p>
+                Unfortunately, our data is somewhat skewed in what was available. For example don't see too many records from before 1810 in our dataset. Part
+                of this is because many of the older Shipwrecks did not have coordinates, so we had to exclude them.
+               Undoubtedly, there were probably many more shipwrecks prior to this
+                time, but they were likely not large (or perhaps important enough) to be recorded with Coordinates (at least not on Wikipedia). 
+                
+               </p>
+         <p>It wasn't until towards the end of our time on the project that we saw the data all together on the map, in full force. We had portions available as we went along, 
+          but the full view was not availale immidiately. Seeing the data mapped out earlier, would have guided us to additional analysis.</p> 
+          <p>
+              With more time, we would have added more attributes to our data to allow for various filters on the page (region, cause of wreck, height of lighthouse, etc.).
+              We also would have like to incorporated the bathemetry of the see floor to see how it contributed to the Shipwrecks, if at all. 
+          </p>
       
-    </div>
+          <p>
+         And of course, legislation. Can't forget that!
+      </p>
 
-    <div class="jumbotron">
-      <h1 class="display-3">Number of Shipwrecks by Decade</h1>
-      <div id="graph" class="map"></div>
-    </div>
-
-    <div class="jumbotron">
-      <h1 class="display-3">By Location</h1>
-    </div>
+      </article>
+      </div>
 
     <div class="test">
       <div class="path">
@@ -117,11 +162,6 @@
   </div> <!-- /container -->
 
 
-  <!-- polyfill.io is library for using newer JavaScript features in older browers (such as Object.assign) -->
-  <!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
-
   </body>
-  <script src="{{ url_for('static', filename='js/d3app.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </html>

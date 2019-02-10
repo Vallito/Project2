@@ -22,7 +22,7 @@ var layers = {
     center: [37.09, -95.71],
     zoom: 3,
     layers: [
-      layers.Lighthouses,
+      // layers.Lighthouses,
       layers.Shipwrecks_before,
       layers.Shipwrecks_after,
       layers.Shipwrecks_other,
@@ -34,16 +34,18 @@ var layers = {
 lightmap.addTo(map);
 
 var overlays = {
-    "Lighthouses": layers.Lighthouses,
-    "Lighthouse Zones": layers.LightHouseCircle,
+
     "Before": layers.Shipwrecks_before,
     "After": layers.Shipwrecks_after,
-    "Other": layers.Shipwrecks_other
+    "Other": layers.Shipwrecks_other,
+    "Lighthouses": layers.Lighthouses,
+    "Lighthouse Zones": layers.LightHouseCircle
     // "LightHouseCircle": layers.LightHouseCircle
   };
 
 // Create a control for our layers, add our overlay layers to it
 L.control.layers(null, overlays).addTo(map);
+
 
 
 // // Create a legend to display information about our map
@@ -62,29 +64,29 @@ L.control.layers(null, overlays).addTo(map);
 var blkShip = L.icon({
   iconUrl: './static/images/ship.png',
   // shadowUrl:'images/ship_shadow.png',
-  iconSize: [30,30],
+  iconSize: [15,15],
   // shadowSize: [30,30],
-  iconAnchor: [15,29],
+  iconAnchor: [15,15],
   // shadowAnchor: [4,10],
-  popupAnchor: [-3,-40]
+  popupAnchor: [-3,-20]
 });
 var redShip = L.icon({
   iconUrl: './static/images/ship_red.png',
   // shadowUrl:'images/ship_shadow.png',
-  iconSize: [30,30],
+  iconSize: [15,15],
   // shadowSize: [30,30],
-  iconAnchor: [15,29],
+  iconAnchor: [15,15],
   // shadowAnchor: [4,10],
-  popupAnchor: [-3,-40]
+  popupAnchor: [-3,-20]
 });
 var purShip = L.icon({
   iconUrl: './static/images/ship_purple.png',
   // shadowUrl:'images/ship_shadow.png',
-  iconSize: [30,30],
+  iconSize: [15,15],
   // shadowSize: [30,30],
-  iconAnchor: [15,29],
+  iconAnchor: [15,15],
   // shadowAnchor: [4,10],
-  popupAnchor: [-3,-40]
+  popupAnchor: [-3,-20]
 });
 var lighthouse = L.icon({
   iconUrl: './static/images/lighthouse.png',
@@ -95,6 +97,8 @@ var lighthouse = L.icon({
   // shadowAnchor: [4,38],
   popupAnchor: [-3,-40]
 });
+
+
 
 
 //////////////////////// get data from /data url //////////////////////////////
@@ -242,11 +246,17 @@ for (var k in shipwreckData) {
       // console.log(shipWrecks);
 
 
-
+      var LightHouseStyle = {
+        "color": "#fced2e",
+        "weight": 3,
+        "opacity": 0.65,
+        "fillColor": '#fced2e'
+    };
 
 
 
       var LightHouseCircle = L.geoJSON(lighthousePolygons,{
+        style: LightHouseStyle,
         coordsToLatLng: function (coords) {
             //                    latitude , longitude, altitude
             return new L.LatLng(coords[1], coords[0], coords[2]); //Normal behavior
@@ -254,7 +264,6 @@ for (var k in shipwreckData) {
         }
     });
           LightHouseCircle.addTo(layers['LightHouseCircle']);
-
       
       var wrecks = shipWrecks.features;
       var lpoly = lighthousePolygons.features;
@@ -350,3 +359,11 @@ for (var k in shipwreckData) {
 
 };
   
+map.on('zoomend', function() {
+  if (map.getZoom() > 6){
+    map.addLayer(layers['Lighthouses']); 
+  }
+  else {
+    map.removeLayer(layers['Lighthouses']);
+      }
+});
