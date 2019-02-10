@@ -23,6 +23,10 @@ ShipWrecks = db.shipwreckData
 def index():
     return render_template("index.html")
 
+@app.route("/display")
+def display():
+    return render_template("display.html")
+
 @app.route("/data")
 def data():
     # write a statement that finds all the items in the db and sets it to a variable
