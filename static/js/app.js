@@ -62,7 +62,7 @@ L.control.layers(null, overlays).addTo(map);
 
 // create custom icons
 var blkShip = L.icon({
-  iconUrl: './static/images/ship.png',
+  iconUrl: './static/images/ship_purple.png',
   // shadowUrl:'images/ship_shadow.png',
   iconSize: [15,15],
   // shadowSize: [30,30],
@@ -80,7 +80,7 @@ var redShip = L.icon({
   popupAnchor: [-3,-20]
 });
 var purShip = L.icon({
-  iconUrl: './static/images/ship_purple.png',
+  iconUrl: './static/images/ship.png',
   // shadowUrl:'images/ship_shadow.png',
   iconSize: [15,15],
   // shadowSize: [30,30],
@@ -241,8 +241,8 @@ for (var k in shipwreckData) {
   //   }
   };
 
-
-      console.log('shipwrecks');
+  console.log('lighthousePolygons')
+      console.log(lighthousePolygons['features']);
       // console.log(shipWrecks);
 
 
@@ -252,23 +252,29 @@ for (var k in shipwreckData) {
         "opacity": 0.65,
         "fillColor": '#fced2e'
     };
-
-
-
       var LightHouseCircle = L.geoJSON(lighthousePolygons,{
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup(`<strong>${feature.properties.name}</strong><br>
+          ${feature.properties.location}<br>
+          ${feature.properties.year}`);
+        },
         style: LightHouseStyle,
         coordsToLatLng: function (coords) {
             //                    latitude , longitude, altitude
             return new L.LatLng(coords[1], coords[0], coords[2]); //Normal behavior
             // return new L.LatLng(coords[0], coords[1]);
         }
-    });
+    })
+    // var popup = L.responsivePopup().setContent(
+    //   `<strong>${lighthousePolygons.features.properties.name}</strong><br>
+    //   ${lighthousePolygons.features.properties.location}<br>
+    //   ${lighthousePolygons.features.properties.year}`);
+    //   ;
           LightHouseCircle.addTo(layers['LightHouseCircle']);
       
       var wrecks = shipWrecks.features;
       var lpoly = lighthousePolygons.features;
-      console.log(lpoly.length);
-      console.log(wrecks.length);
+
       for (var i = 0; i < wrecks.length; i++){
         var boat = Object.assign({}, wrecks[i]); 
         // console.log(boat.properties);

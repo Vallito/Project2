@@ -56,3 +56,13 @@ Our goal is to show whether the contruction of lighthouses were influenced by th
 
    * plotly.js
    * turf.js
+# Instructions
+
+## Data Gathering:
+In the Python folder, is a jupyter notebook. Run all cells to import the data into MongoDB. 
+
+## Running the App:
+Once the data is ready, from the main folder, run app.py (make sure your enviornment is activated!).
+
+## Watch the Magic Happen!
+Sit back, relax and enjoy the show! One small note, the Visualizations page takes a bit of time to process (spatial analysis is no joke!), so be patient :). 

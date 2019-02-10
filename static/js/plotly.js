@@ -24,14 +24,14 @@ function makeViz(error,appData) {
   
   wreckYears.push(parseInt(year));
   };
-  console.log(wreckYears);
+  // console.log(wreckYears);
   var uniqueYears = wreckYears.filter((v, i, a) => a.indexOf(v) === i)
   var yearCounts = Object.create(null);
   wreckYears.forEach(yr => {
     yearCounts[yr] = yearCounts[yr] ? yearCounts[yr] + 1 : 1;
   });
-  console.log("uniqueyears: " + uniqueYears);
-  console.log(yearCounts);
+  // console.log("uniqueyears: " + uniqueYears);
+  // console.log(yearCounts);
 
 
   var lighthousedata = appData[0].lighthouses;
@@ -48,14 +48,14 @@ function makeViz(error,appData) {
   litYears.push(parseInt(lYear));
 
   };
-  console.log(litYears);
+  // console.log(litYears);
   var uniqueLYears = litYears.filter((v,i,a) => a.indexOf(v) == i)
   var lYearCounts = Object.create(null);
   litYears.forEach(ly => {
     lYearCounts[ly] = lYearCounts[ly] ? lYearCounts[ly] + 1 : 1;
   });
   // console.log("unique lit years: " + uniqueLYears);
-  console.log(lYearCounts);
+  // console.log(lYearCounts);
 
   var chartData2 = [];
   var chartData = [];
@@ -82,7 +82,7 @@ function makeViz(error,appData) {
   // console.log('newKey',lnewKey);
  obj = {'year':lnewKey,'count':lval};
   chartData.push(obj);
-  console.log('chart data',chartData);
+  // console.log('chart data',chartData);
 
   var obj2 = {};
   var val = [];
@@ -116,16 +116,16 @@ var lightCount = 0;
 for (key in yearCounts) {
   shipCount = shipCount + yearCounts[key]
 };
-console.log(shipCount)
+// console.log(shipCount)
 for (key in lYearCounts) {
   lightCount = lightCount + lYearCounts[key]
 };
-console.log(lightCount)
+// console.log(lightCount)
 
 shipVsLight = []
 shipVsLight.push(shipCount);
 shipVsLight.push(lightCount);
-console.log(shipVsLight)
+// console.log(shipVsLight)
 
 
   
@@ -182,7 +182,7 @@ var trace4 = {
 };
 var data = [trace1, trace2,trace3,trace4,trace5];
 
-console.log(chartData[0]);
+// console.log(chartData[0]);
 var layout = {
   title: 'Counts over the Years',
   xaxis: {
