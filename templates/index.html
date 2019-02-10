@@ -61,7 +61,6 @@
   </div>
 </div>
 
-
     <div class="section">
       <h1 class="display-3">The Process</h1>
       <article>
@@ -71,7 +70,7 @@
             <li><a href="https://en.wikipedia.org/wiki/List_of_lighthouses_in_the_United_States" target="blank">Lighthouses of the US</a></li>
             <li><a href="https://en.wikipedia.org/wiki/List_of_shipwrecks_of_the_United_States" target="blank">Shipwrecks of the US</a></li>
           </ul>
-          We scoured the web for data sources that met four main reqirements:
+          We scoured the web for data sources that met four main requirements:
     
           <ul>
             <li>Coordinates - needed to compare locations</li>
@@ -80,26 +79,26 @@
             <li>Easily accessible</li>
           </ul>
           As it usually is, when it comes to gathering data, the task turned out to be a bit more difficult than
-          we had hoped. We landed on using Wikipedia as our source for both, using the websraping techniques learned
+          we had hoped. We landed on using Wikipedia as our source for both, using the web scraping techniques learned
           in previous modules.
         </p>
         <h2>Cleansing</h2>
         <p>
           Working with data scraped from the web presented a couple challenges, due to the way the data was stored in the site.
-          The primary concern was taking the coordinate values received and turing them into useful data for plotting.This meant removing
-          any special characters, and converting the N/S and E/W into strictly numbers.
+          The primary concern was taking the coordinate values received and Turing them into useful data for plotting. This meant removing
+          any special characters and converting the N/S and E/W into strictly numbers.
         </p>
         <p>
             Additionally, we needed to remove any records that did not have either a year or coordinate location associated with it. 
             Since we were doing a comparison of both time and location, these datapoints were crucial. 
         </p>
         <h2>Plotting</h2>
-        <p>This part was probably the most challenging, but the most rewarding. In order to do a comparison between the lighthouses
-          and the shipwrecks, we needed to convert the lighthouse points into polygons. This meant taking the json object of lighthoues,
-          and turning them into a GeoJson object. <br><br>Fun Fact: coordinates in a GeoJson are stored [Lon,Lat] while corrdinates used in 
-          plotting a non-GeoJon object in leaflet are [Lat,Lon]. <br><br> There was quite a bit of trial and error, but eventually we were able 
+        <p>This part was probably the most challenging, but the most rewarding. To do a comparison between the lighthouses
+          and the shipwrecks, we needed to convert the lighthouse points into polygons. This meant taking the json object of lighthouses,
+          and turning them into a GeoJson object. <br><br>Fun Fact: coordinates in a GeoJson are stored [Lon,Lat] while coordinates used in 
+          plotting a non-GeoJson object in leaflet are [Lat,Lon]. <br><br> There was quite a bit of trial and error, but eventually we were able 
           to get all necessary objects created for the comparison. Once we had which lighthouse each shipwreck was associated with, we could do a
-          comparison between the years to see if the wreck happend before or after the construction of the lighthouse. 
+          comparison between the years to see if the wreck happened before or after the construction of the lighthouse. 
         </p>
       </article>
     </div>
@@ -107,29 +106,29 @@
     <div class="section">
       <h1 class="display-3">The Conclusion</h1>
       <article>
-      <p>There were a few things that jumped out at us when we first took a look at the leaflet plot.
+      <p>There were a few things that jumped out at us when we first looked at the leaflet plot.
       There were quite a few Shipwrecks and Lighthouses inland. Much more than we would have expected.
-      There also appeared to be more shipwrecks that occured after the construction of the Lighthouse. This is likely
-      due to the age of most lighthouses and availibility of data that goes back that far. 
+      There also appeared to be more shipwrecks that occurred after the construction of the Lighthouse. This is likely
+      due to the age of most lighthouses and availability of data that goes back that far. 
       </p>
       <p>
         When it came to plotting the Lighthouses and Shipwrecks by year was when we saw some interesting trends.
-        Almost as if we're seeing history through the lense of shipwrecks. 
+        Almost as if we're seeing history through the lens of shipwrecks. 
       </p>
       <p>The most prominent point occurs in 1942, the middle of <a href="https://en.wikipedia.org/wiki/World_War_II" target="blank">
         WWII</a>. By far the largest number of shipwrecks recorded
         for a year. 
       </p>
       <p></p>
-        Going back almost 100 years, around 1860, there's a sharp decline in the construction of lighhouses, and a steep increase of shipwrecks. This, 
-        Ladies and Gentlemen, is the real life affect of the 
+        Going back almost 100 years, around 1860, there's a sharp decline in the construction of lighthouses, and a steep increase of shipwrecks. This, 
+        Ladies and Gentlemen, is the real-life effect of the 
         <a href="https://en.wikipedia.org/wiki/American_Civil_War" target="blank">American Civil War</a>, which lasted from 1861 to 1865. 
-        Lighthouse resources were directed towards the effors of the war, rather than towards construction, and the increase in Shipwrecks
-        was due casualties of war. Once the war was over, the number of Shipwrecks dropped, and the construction of lighthouses commenced again.
+        Lighthouse resources were directed towards the efforts of the war, rather than towards construction, and the increase in Shipwrecks
+        were due casualties of war. Once the war was over, the number of Shipwrecks dropped, and the construction of lighthouses commenced again.
       </p>
       <p>Interestingly, we can see that since the 1960's, there have been no more lighthouses constructed in the US. The last lighthouse lit
         was the <a href="https://en.wikipedia.org/wiki/Charleston_Light" target="blank">Charleston Light</a> in South Carolina. This is likely
-        due to advancements in navigation, and communcation between ship and shore.
+        due to advancements in navigation, and communication between ship and shore.
       </p>
     </article>
     </div>
@@ -138,17 +137,17 @@
         <h1 class="display-3">The Epilogue</h1>
         <article>
             <p>
-                Unfortunately, our data is somewhat skewed in what was available. For example don't see too many records from before 1810 in our dataset. Part
+                Unfortunately, our data is somewhat skewed in what was available. For example, don't see too many records from before 1810 in our dataset. Part
                 of this is because many of the older Shipwrecks did not have coordinates, so we had to exclude them.
                Undoubtedly, there were probably many more shipwrecks prior to this
                 time, but they were likely not large (or perhaps important enough) to be recorded with Coordinates (at least not on Wikipedia). 
                 
                </p>
          <p>It wasn't until towards the end of our time on the project that we saw the data all together on the map, in full force. We had portions available as we went along, 
-          but the full view was not availale immidiately. Seeing the data mapped out earlier, would have guided us to additional analysis.</p> 
+          but the full view was not available immediately. Seeing the data mapped out earlier, would have guided us to additional analysis.</p> 
           <p>
               With more time, we would have added more attributes to our data to allow for various filters on the page (region, cause of wreck, height of lighthouse, etc.).
-              We also would have like to incorporated the bathemetry of the see floor to see how it contributed to the Shipwrecks, if at all. 
+              We also would have like to incorporate the bathometry of the see floor to see how it contributed to the Shipwrecks, if at all. 
           </p>
       
           <p>
@@ -170,7 +169,7 @@
 
   </div> <!-- /container -->
 
-
   </body>
 
 </html>
+
